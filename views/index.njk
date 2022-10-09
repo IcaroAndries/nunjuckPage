@@ -1,0 +1,31 @@
+{%	extends	"layout.njk" %}
+{%	block	pagina	%}
+    <h1>Músicas	da	minha	Playlist</h1>
+    <table	class="table	table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nome</th>
+                <th>Artista</th>
+                <th>Estrelas</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Californication</td>
+                <td>Red	Hot	Chili	Peppers</td>
+                <td>
+                <span	class="glyphicon	glyphicon-star"></span>
+                <span	class="glyphicon	glyphicon-star"></span>
+                <span	class="glyphicon	glyphicon-star"></span>
+                </td>
+                <td>
+                <a	href="#" class="btn	btn-primary">Editar</a>
+                <a	href="#" class="btn	btn-danger">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+{%	endblock %}
