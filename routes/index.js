@@ -4,10 +4,9 @@ var router = express.Router();
 var db = require('../db');
 
 router.get('/',(req,res,next)=>{
-    res.render('index');
     db('musicas').then((data)=>{
-        console.log(data);
-    })
+        res.render('index', {musicas: data});
+    }, next);
 });
 
 router.get('/add',(req,res,next)=>{
@@ -15,7 +14,11 @@ router.get('/add',(req,res,next)=>{
 });
 
 router.post('/',(req,res,next)=>{
-
+    console.log('json post: ' + req.body)
+    db('musicas').insert(req.body).then((id) => { //var ids armazena o id criado na inserção
+        console.log('id : ' + id);
+        res.redirect('/')
+    }, next);
 });
 
 router.get('/edit/:id',(req,res,next)=>{
