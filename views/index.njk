@@ -12,20 +12,25 @@
             </tr>
         </thead>
         <tbody>
+            {%	for	musica	in	musicas	%}
             <tr>
-                <td>1</td>
-                <td>Californication</td>
-                <td>Red	Hot	Chili	Peppers</td>
+                <td>{{musica.id}}</td>
+                <td>{{musica.nome}}</td>
+                <td>{{musica.artista}}</td>
                 <td>
-                <span	class="glyphicon	glyphicon-star"></span>
-                <span	class="glyphicon	glyphicon-star"></span>
-                <span	class="glyphicon	glyphicon-star"></span>
+                    {% for	i in range(0, musica.estrelas) %}
+                        <span class="glyphicon glyphicon-star"></span>
+                    {% endfor %}
                 </td>
                 <td>
-                <a	href="#" class="btn	btn-primary">Editar</a>
-                <a	href="#" class="btn	btn-danger">Excluir</a>
+                    <a href="/edit/{{musica.id}}" class="btn btn-primary">Editar</a>
+                    <a onclick="event.preventDefault(); document.getElementById('logout-form-{{musica.id}}').submit();" class="btn btn-danger">Excluir</a>
                 </td>
+                <form id="logout-form-{{musica.id}}" action="/delete/{{musica.id}}" method="POST" style="display: none;">
+		            <input type="hidden" name="_method" value="DELETE"	/>
+                </form>
             </tr>
+            {%	endfor	%}
         </tbody>
     </table>
 {%	endblock %}
