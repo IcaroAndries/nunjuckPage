@@ -14,23 +14,48 @@ router.get('/add',(req,res,next)=>{
 });
 
 router.post('/',(req,res,next)=>{
-    console.log('json post: ' + req.body)
     db('musicas').insert(req.body).then((id) => { //var ids armazena o id criado na inserção
-        console.log('id : ' + id);
         res.redirect('/')
     }, next);
 });
 
 router.get('/edit/:id',(req,res,next)=>{
+    const {id} = req.params;
+
+    db('musicas').where('id', id).first().then((data)=>{
+        if(!data){
+            return res.send(400);
+        }
+
+        res.render("edit.njk", {musica : data})
+    },next);
 
 });
 
 router.put('/edit/:id',	(req,res,next)=>{
+    const {id} = req.params;
+    console.log(req.body);
 
+    db('musicas').where('id', id).update(req.body).then((result) => {
+        if(result === 0){
+            return res.send(400);
+        }
+
+        res.redirect('/');
+
+    })
 });
 
 router.delete('/delete/:id', (req,res,next)=>{
+    const {id} = req.params;
 
+    db('musicas').where('id', id).delete().then((result) =>{
+        if(result === 0){
+            return res.send(400);
+        }
+
+        res.redirect('/');
+    })
 });
 
 module.exports = router;
