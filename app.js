@@ -4,11 +4,20 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var expressNunjucks = require('express-nunjucks');
+var passport = require('passport');
+require('./passport');
 
 var indexRouter = require('./routes/index');
 // var usersRouter = require('./routes/users');
 
 var methodOverride = require('method-override');
+const session = require('express-session');
+
+require('express-session');
+require('./models/music');
+require('./models/users');
+var mongose = require('mongoose');
+mongose.Promise = require('bluebird');
 
 var app = express();
 
@@ -18,6 +27,15 @@ app.set('view engine', 'njk');
 
 // defining njk
 var njk = expressNunjucks(app);
+
+app.use(session({
+  secret: 'teste session',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -31,7 +49,7 @@ app.use(methodOverride((req, res) => {
     delete req.body._method
     return method
   }
-}))
+}));
 
 app.use('/', indexRouter);
 // app.use('/users', usersRouter);

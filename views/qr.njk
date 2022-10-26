@@ -1,0 +1,11 @@
+{% extends "layout.njk" %}
+{% block pagina %}
+    <div class="row col-md-6">
+        <form action="/qrGen" method="get">
+            <div class="form-group">
+                <label>Gere seu qrcode</label>
+                <button type="submit" class="btn btn-default">Gerar</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}
